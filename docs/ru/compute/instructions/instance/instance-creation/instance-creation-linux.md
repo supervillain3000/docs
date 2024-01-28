@@ -185,29 +185,33 @@ curl -X GET https://network.kz-ala-1.pscloud.io/v2.0/networks \
 
 ```json
 {
-	"server" : {
-		"name" : "<Название ВМ>",
-		"flavorRef" : "<ID типа конфигурации>",
-		"availability_zone": "kz-ala-1",
-		"networks": [
-			{"uuid": "ID сети в которой требуется создать ВМ"}
-		],
-		"block_device_mapping_v2": [{
-			"uuid": "ID образа ОС",
-			"source_type": "image",
-			"destination_type": "volume",
-			"boot_index": 0,
-			"volume_size": "10"
-		}],
-		"metadata" : {
-			"My Server Name" : "Apache1"
-		},
-		"security_groups": [
-			{
-				"name": "default"
-			}
-		]
-	}
+  "server":{
+    "name":"<Название ВМ>",
+    "flavorRef":"<ID типа конфигурации>",
+    "availability_zone":"kz-ala-1",
+    "networks":[
+      {
+        "uuid":"ID сети в которой требуется создать ВМ"
+      }
+    ],
+    "block_device_mapping_v2":[
+      {
+        "uuid":"ID образа ОС",
+        "source_type":"image",
+        "destination_type":"volume",
+        "boot_index":0,
+        "volume_size":"10"
+      }
+    ],
+    "metadata":{
+      "My Server Name":"Apache1"
+    },
+    "security_groups":[
+      {
+        "name":"default"
+      }
+    ]
+  }
 }
 ```
 
