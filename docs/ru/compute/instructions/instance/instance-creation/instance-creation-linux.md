@@ -66,12 +66,16 @@ openstack security group list
 ```shell
 openstack keypair list
 ```
+
 - Чтобы создать новую ключевую пару:
-	 1. Сгенерируйте ключ:
-	```shell
+
+1. Сгенерируйте ключ:
+
+```
 ssh-keygen -q -N ""
 ```
-	 2. Загрузите ключ:
+
+2. Загрузите ключ:
 		
 ```shell
 openstack keypair create --public-key ~/.ssh/id_rsa.pub --type ssh <keypair_name>
@@ -106,8 +110,9 @@ openstack server list
 
 1. Создайте JSON файл auth.json с телом запроса для аутентификации:
 
-```
-{ "auth": {
+```json
+{ 
+"auth": {
     "identity": {
       "methods": ["password"],
       "password": {
@@ -172,7 +177,7 @@ curl -X GET https://network.kz-ala-1.pscloud.io/v2.0/networks \
 
 6. Создайте JSON файл body.json с телом запроса:
 
-```
+```json
 {
 	"server" : {
 		"name" : "<Название ВМ>",
