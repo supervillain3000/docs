@@ -111,25 +111,31 @@ openstack server list
 1. Создайте JSON файл auth.json с телом запроса для аутентификации:
 
 ```json
-{ 
-"auth": {
-    "identity": {
-      "methods": ["password"],
-      "password": {
-        "user": {
-          "name": "<ID-проекта>",
-          "domain": { "name": "Default" },
-          "password": "<Пароль>"
-        }
-      }
-    },
-    "scope": {
-      "project": {
-        "name": "<Имя проекта>",
-        "domain": { "name": "Default" }
-      }
-    }
-  }
+{
+  "auth":{
+    "identity":{
+      "methods":[
+        "password"
+      ],
+      "password":{
+        "user":{
+          "name":"<ID-проекта>",
+          "domain":{
+            "name":"Default"
+          },
+          "password":"<Пароль>"
+        }
+      }
+    },
+    "scope":{
+      "project":{
+        "name":"<Имя проекта>",
+        "domain":{
+          "name":"Default"
+        }
+      }
+    }
+  }
 }
 ```
 Где:
@@ -183,7 +189,7 @@ curl -X GET https://network.kz-ala-1.pscloud.io/v2.0/networks \
 		"name" : "<Название ВМ>",
 		"flavorRef" : "<ID типа конфигурации>",
 		"availability_zone": "kz-ala-1",
-		"networks": 
+		"networks": [
 			{"uuid": "ID сети в которой требуется создать ВМ"}
 		],
 		"block_device_mapping_v2": [{
