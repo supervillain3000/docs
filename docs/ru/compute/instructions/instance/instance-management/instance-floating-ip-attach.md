@@ -56,3 +56,97 @@ openstack server add floating ip <ID виртуальной машины> <IP-а
 ```
 openstack server remove floating ip <ID виртуальной машины> <IP-адрес>
 ```
+
+
+---
+## API
+
+1. Создайте JSON файл auth.json с телом запроса для аутентификации:
+
+```json
+{
+  "auth":{
+    "identity":{
+      "methods":[
+        "password"
+      ],
+      "password":{
+        "user":{
+          "name":"<ID-проекта>",
+          "domain":{
+            "name":"Default"
+          },
+          "password":"<Пароль>"
+        }
+      }
+    },
+    "scope":{
+      "project":{
+        "name":"<Имя проекта>",
+        "domain":{
+          "name":"Default"
+        }
+      }
+    }
+  }
+}
+```
+Где:
+
+- <ID-проекта> - можете посмотреть в обзоре проекта.
+- <Пароль> - пароль для аутентификации в проект.
+- <Имя проекта> - название облачного проекта.
+
+2. Получите токен аутентификации:
+
+```shell
+curl -i \
+
+-H "Content-Type: application/json" \
+
+-d '@auth.json' \
+
+https://auth.pscloud.io/v3/auth/tokens | grep -i 'x-subject-token' | awk '{print $2}'
+```
+
+Токен будет содержаться в заголовке ответа в значении x-subject-token.
+
+3. Получите ID сети с именем Floating IP Net:
+
+```
+curl -X GET https://network.kz-ala-1.pscloud.io/v2.0/networks \                     
+-H "Content-Type: application/json" \
+-H "X-Auth-Token: <token>"
+```
+
+4. Выполните запрос на создание плавающего IP:
+
+```
+curl -X POST https://network.kz-ala-1.pscloud.io/v2.0/floatingips \
+-H "Content-Type: application/json" \
+-H "X-Auth-Token: <token>" \
+-d '{"floatingip": {"floating_network_id": "ID сети Floation IP Net"}}' \
+```
+
+5. Получите ID виртуальной машины, для которой необходимо подключить плавающий IP:
+
+```
+curl -X GET https://compute.kz-ala-1.pscloud.io/v2.1/servers \
+-H "Content-Type: application/json" \
+-H "X-Auth-Token: <токен>"
+```
+
+6. Подключите плавающий IP:
+   
+```
+curl -X POST https://compute.kz-ala-1.pscloud.io/v2.1/servers/<ID виртуальной машины>/action \
+-H "Content-Type: application/json" \
+-H "X-Auth-Token: <токен>" \
+-d '{"addFloatingIp": {"address": "<IP-адрес>"}}'
+
+```
+
+---
+
+## Terraform
+
