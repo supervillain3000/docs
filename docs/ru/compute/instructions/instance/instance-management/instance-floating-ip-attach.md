@@ -100,9 +100,7 @@ openstack server remove floating ip <ID виртуальной машины> <IP
 2. Получите токен аутентификации:
 
 ```shell
-curl -i \
-
--H "Content-Type: application/json" \
+curl -i -H "Content-Type: application/json" \
 
 -d '@auth.json' \
 
@@ -158,15 +156,15 @@ curl -X POST https://compute.kz-ala-1.pscloud.io/v2.1/servers/<ID виртуал
 
 Для освобождения плавающего IP необходимо получить его ID:
 
-```
- curl -X GET https://network.kz-ala-1.pscloud.io/v2.0/floatingips \
+```shell
+curl -X GET https://network.kz-ala-1.pscloud.io/v2.0/floatingips \
 -H "Content-Type: application/json" \
 -H "X-Auth-Token: <токен>"
 ```
 
 Освободить командой:
 
-```
+```shell
 curl -X DELETE -H "X-Auth-Token: <токен>" https://network.kz-ala-1.pscloud.io/v2.0/floatingips/<ID плавающего IP>
 ```
 

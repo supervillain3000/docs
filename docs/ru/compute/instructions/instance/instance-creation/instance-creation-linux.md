@@ -147,9 +147,7 @@ openstack server list
 2. Получите токен аутентификации:
 
 ```shell
-curl -i \
-
--H "Content-Type: application/json" \
+curl -i -H "Content-Type: application/json" \
 
 -d '@auth.json' \
 
