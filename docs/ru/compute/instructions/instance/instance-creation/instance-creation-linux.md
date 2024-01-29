@@ -351,6 +351,7 @@ resource "openstack_compute_floatingip_associate_v2" "floating_ip_association" {
 	- block_device - описание блочного устройства.
 		- `volume_type` - тип диска.
 		- `volume_size` - размер диска.
+		- `delete_on_termination` - политика удаления диска при удалении ВМ.
 - `openstack_networking_floatingip_v2` - описание создания плавающего IP.
 - `openstack_compute_floatingip_associate_v2` - описание подключения плавающего IP.
 
