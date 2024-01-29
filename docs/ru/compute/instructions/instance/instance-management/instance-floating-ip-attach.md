@@ -29,31 +29,31 @@
 
 1. Скопируйте ID сети FloatingIP Net:
 
-```
+```shell
 openstack network list
 ```
 
 2. Создайте плавающий IP в сети FloatingIP Net:
 
-```
+```shell
 openstack floating ip create <ID сети FloatingIP Net>
 ```
 
 3. Скопируйте IP-адрес:
 
-```
+```shell
 openstack floating ip list
 ```
 
 4. Подключите плавающий IP адрес к ВМ:
 
-```
+```shell
 openstack server add floating ip <ID виртуальной машины> <IP-адрес>
 ```
 
 Для отключения плавающего IP введите команду:
 
-```
+```shell
 openstack server remove floating ip <ID виртуальной машины> <IP-адрес>
 ```
 

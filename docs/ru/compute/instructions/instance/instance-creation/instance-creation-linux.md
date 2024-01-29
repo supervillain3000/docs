@@ -71,7 +71,7 @@ openstack keypair list
 
 1. Сгенерируйте ключ:
 
-```
+```shell
 ssh-keygen -q -N ""
 ```
 
@@ -158,7 +158,7 @@ https://auth.pscloud.io/v3/auth/tokens | grep -i 'x-subject-token' | awk '{print
 
 3. Получите список доступных типов конфигураций:
 
-```
+```shell
 curl -X GET https://compute.kz-ala-1.pscloud.io/v2.1/flavors \
 -H "Content-Type: application/json" \
 -H "X-Auth-Token: <токен>"
@@ -166,7 +166,7 @@ curl -X GET https://compute.kz-ala-1.pscloud.io/v2.1/flavors \
 
 4. Получите список доступных образов ОС и выберите нужный:
 
-```
+```shell
 curl -X GET https://compute.kz-ala-1.pscloud.io/v2.1/images \
 -H "Content-Type: application/json" \
 -H "X-Auth-Token: <токен>"
@@ -174,7 +174,7 @@ curl -X GET https://compute.kz-ala-1.pscloud.io/v2.1/images \
 
 5. Получите ID сети в которой необходимо создать инстанс:
 
-```
+```shell
 curl -X GET https://network.kz-ala-1.pscloud.io/v2.0/networks \
 -H "Content-Type: application/json" \
 -H "X-Auth-Token: <токен>"
@@ -216,7 +216,7 @@ curl -X GET https://network.kz-ala-1.pscloud.io/v2.0/networks \
 
 7. Передайте тело запроса с помощью POST запроса:
 
-```
+```shell
 curl -X POST https://compute.kz-ala-1.pscloud.io/v2.1/servers \
 -H "Content-Type: application/json" \
 -H "X-Auth-Token: <токен>" \
@@ -225,7 +225,7 @@ curl -X POST https://compute.kz-ala-1.pscloud.io/v2.1/servers \
 
 8. Проверьте статус сервера с помощью запроса:
 
-```
+```shell
 curl -X GET https://compute.kz-ala-1.pscloud.io/v2.1/servers \                
 -H "Content-Type: application/json" \
 -H "X-Auth-Token: <токен>"
@@ -240,7 +240,7 @@ curl -X GET https://compute.kz-ala-1.pscloud.io/v2.1/servers \            
 
 1. Опишите в конфигурационном файле параметры создания локальной сети, маршрутизатора, группы безопасности и виртуальной машины с плавающим IP:
 
-```
+```hcl
 data "openstack_images_image_v2" "image_data" {
 	most_recent = true
 	properties = {
@@ -348,7 +348,7 @@ resource "openstack_compute_floatingip_associate_v2" "floating_ip_association" {
 	- `config_drive` - [конфигурационный диск]()
 	- `key_pair` - ключевая пара.
 	- `network` - сеть ВМ.
-	- block_device - описание блочного устройства.
+	- `block_device` - описание блочного устройства.
 		- `volume_type` - тип диска.
 		- `volume_size` - размер диска.
 		- `delete_on_termination` - политика удаления диска при удалении ВМ.
@@ -362,26 +362,26 @@ resource "openstack_compute_floatingip_associate_v2" "floating_ip_association" {
 1. Перейдите в терминале в директорию где находится созданный вами конфигурационный файл.
 2. Проверьте корректность конфигурационного файла:
 
-```
+```shell
 terraform validate
 ```
 
 3. Выполните команду:
 
-```
+```shell
 terraform plan
 ```
 В терминале будет выведен список ресурсов с параметрами. На этом этапе изменения не будут внесены. Если в конфигурации есть ошибки, Terraform на них укажет.
 
 4. Примените изменения конфигурации:
 
-```
+```shell
 terraform apply
 ```
 5. Подтвердите изменения: введите в терминале слово `yes` и нажмите **Enter**.
 6.  Удалите ресурсы с помощью команды:
 
-```
+```shell
 terraform destroy
 ```
 
