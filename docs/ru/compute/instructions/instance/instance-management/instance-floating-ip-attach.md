@@ -113,7 +113,7 @@ https://auth.pscloud.io/v3/auth/tokens | grep -i 'x-subject-token' | awk '{print
 
 3. Получите ID сети с именем Floating IP Net:
 
-```
+```shell
 curl -X GET https://network.kz-ala-1.pscloud.io/v2.0/networks \                     
 -H "Content-Type: application/json" \
 -H "X-Auth-Token: <token>"
@@ -121,7 +121,7 @@ curl -X GET https://network.kz-ala-1.pscloud.io/v2.0/networks \           
 
 4. Выполните запрос на создание плавающего IP:
 
-```
+```shell
 curl -X POST https://network.kz-ala-1.pscloud.io/v2.0/floatingips \
 -H "Content-Type: application/json" \
 -H "X-Auth-Token: <token>" \
@@ -130,7 +130,7 @@ curl -X POST https://network.kz-ala-1.pscloud.io/v2.0/floatingips \
 
 5. Получите ID виртуальной машины, для которой необходимо подключить плавающий IP:
 
-```
+```shell
 curl -X GET https://compute.kz-ala-1.pscloud.io/v2.1/servers \
 -H "Content-Type: application/json" \
 -H "X-Auth-Token: <токен>"
@@ -138,13 +138,38 @@ curl -X GET https://compute.kz-ala-1.pscloud.io/v2.1/servers \
 
 6. Подключите плавающий IP:
    
-```
+```shell
 curl -X POST https://compute.kz-ala-1.pscloud.io/v2.1/servers/<ID виртуальной машины>/action \
 -H "Content-Type: application/json" \
 -H "X-Auth-Token: <токен>" \
 -d '{"addFloatingIp": {"address": "<IP-адрес>"}}'
 
 ```
+
+Для отключения плавающего IP от ВМ воспользуйтесь запросом:
+
+```shell
+curl -X POST https://compute.kz-ala-1.pscloud.io/v2.1/servers/<ID виртуальной машины>/action \
+-H "Content-Type: application/json" \
+-H "X-Auth-Token: <токен>" \
+-d '{"removeFloatingIp": {"address": "<IP-адрес>"}}'
+
+```
+
+Для освобождения плавающего IP необходимо получить его ID:
+
+```
+ curl -X GET https://network.kz-ala-1.pscloud.io/v2.0/floatingips \
+-H "Content-Type: application/json" \
+-H "X-Auth-Token: <токен>"
+```
+
+Освободить командой:
+
+```
+curl -X DELETE -H "X-Auth-Token: <токен>" https://network.kz-ala-1.pscloud.io/v2.0/floatingips/<ID плавающего IP>
+```
+
 
 ---
 
