@@ -128,3 +128,19 @@ openstack port delete <ID порта>
 ---
 ### Terraform
 
+```hcl
+resource "openstack_networking_network_v2" "network_1" {
+  name           = "network_1"
+  admin_state_up = "true"
+}
+
+resource "openstack_compute_instance_v2" "instance_1" {
+  name            = "instance_1"
+  security_groups = ["default"]
+}
+
+resource "openstack_compute_interface_attach_v2" "ai_1" {
+  instance_id = openstack_compute_instance_v2.instance_1.id
+  network_id  = openstack_networking_port_v2.network_1.id
+}
+```

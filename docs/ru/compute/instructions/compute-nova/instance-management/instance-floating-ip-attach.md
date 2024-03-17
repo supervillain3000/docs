@@ -173,3 +173,24 @@ curl -X DELETE -H "X-Auth-Token: <токен>" https://network.kz-ala-1.pscloud.
 
 ## Terraform
 
+```hcl
+
+data "openstack_networking_network_v2" "external_network" {
+	name = "FloatingIP Net"
+}
+
+resource "openstack_networking_floatingip_v2" "fip" {
+	pool = data.openstack_networking_network_v2.external_network.name
+}
+
+resource "openstack_compute_floatingip_associate_v2" "fip_association" {
+	floating_ip = openstack_networking_floatingip_v2.fip.address
+	instance_id = openstack_compute_instance_v2.instance.id
+	fixed_ip = openstack_compute_instance_v2.instance.access_ip_v4
+}
+```
+
+Где:
+
+- `openstack_networking_floatingip_v2` - описание создания плавающего IP.
+- `openstack_compute_floatingip_associate_v2` - описание подключения плавающего IP.
